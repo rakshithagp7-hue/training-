@@ -50,6 +50,7 @@ function Home() {
         <h2>Home</h2>
         <div>
           <span style={{ marginRight: "10px" }}>Hi, {user?.username}</span>
+          <button onClick={() => navigate("/subscription")} style={{ marginRight: "10px" }}>Subscription</button>
           <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
