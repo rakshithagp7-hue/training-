@@ -5,6 +5,8 @@ import API from "../api";
 function Profile() {
   const [history, setHistory] = useState([]);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [phone, setPhone] = useState("");
+  const [phoneMessage, setPhoneMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +28,17 @@ function Profile() {
     }
   };
 
+  const handleUpdatePhone = async (e) => {
+    e.preventDefault();
+    setPhoneMessage("");
+    try {
+      const res = await API.put("/auth/phone", { phone });
+      setPhoneMessage(res.data.message);
+    } catch (err) {
+      setPhoneMessage(err.response?.data?.message || "Failed to update phone");
+    }
+  };
+
   return (
     <div style={{ maxWidth: "600px", margin: "30px auto", padding: "20px" }}>
       <button onClick={() => navigate("/")} style={{ marginBottom: "20px" }}>← Back to Home</button>
@@ -35,6 +48,21 @@ function Profile() {
           <input type="checkbox" checked={notificationsEnabled} onChange={toggleNotifications} />
           Enable popup notifications (cricket / science tweets)
         </label>
+      </div>
+
+      <div style={{ border: "1px solid #555", padding: "15px", borderRadius: "8px", marginBottom: "20px" }}>
+        <h4>Update Phone Number</h4>
+        <form onSubmit={handleUpdatePhone} style={{ display: "flex", gap: "10px" }}>
+          <input
+            type="text"
+            placeholder="Enter phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            style={{ flex: 1, padding: "8px" }}
+          />
+          <button type="submit">Save</button>
+        </form>
+        {phoneMessage && <p style={{ color: "gray" }}>{phoneMessage}</p>}
       </div>
 
       <h2>Login History</h2>

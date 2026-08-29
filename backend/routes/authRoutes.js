@@ -124,4 +124,20 @@ router.put("/notifications", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Failed to update preference", error: err.message });
   }
 });
+
+// Update phone number
+router.put("/phone", authMiddleware, async (req, res) => {
+  try {
+    const { phone } = req.body;
+    if (!phone) {
+      return res.status(400).json({ message: "Phone number is required." });
+    }
+    req.user.phone = phone;
+    await req.user.save();
+    res.json({ message: "Phone number updated successfully.", phone });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating phone number", error: err.message });
+  }
+});
+
 module.exports = router;
