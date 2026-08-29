@@ -1,0 +1,58 @@
+const translations = {
+  en: {
+    home: "Home",
+    logout: "Logout",
+    subscription: "Subscription",
+    profile: "Profile",
+    audioTweet: "Audio Tweet",
+    whatsHappening: "What's happening?",
+    tweet: "Tweet",
+  },
+  es: {
+    home: "Inicio",
+    logout: "Cerrar sesión",
+    subscription: "Suscripción",
+    profile: "Perfil",
+    audioTweet: "Tweet de audio",
+    whatsHappening: "¿Qué está pasando?",
+    tweet: "Twittear",
+  },
+  hi: {
+    home: "होम",
+    logout: "लॉग आउट",
+    subscription: "सदस्यता",
+    profile: "प्रोफ़ाइल",
+    audioTweet: "ऑडियो ट्वीट",
+    whatsHappening: "क्या हो रहा है?",
+    tweet: "ट्वीट करें",
+  },
+  pt: {
+    home: "Início",
+    logout: "Sair",
+    subscription: "Assinatura",
+    profile: "Perfil",
+    audioTweet: "Tweet de áudio",
+    whatsHappening: "O que está acontecendo?",
+    tweet: "Tweetar",
+  },
+  zh: {
+    home: "首页",
+    logout: "登出",
+    subscription: "订阅",
+    profile: "个人资料",
+    audioTweet: "语音推文",
+    whatsHappening: "发生什么事了？",
+    tweet: "发推",
+  },
+  fr: {
+    home: "Accueil",
+    logout: "Déconnexion",
+    subscription: "Abonnement",
+    profile: "Profil",
+    audioTweet: "Tweet audio",
+    whatsHappening: "Quoi de neuf ?",
+    tweet: "Tweeter",
+  },
+};
+
+export default translations;
