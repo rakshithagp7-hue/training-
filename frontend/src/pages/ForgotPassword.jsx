@@ -13,7 +13,7 @@ function ForgotPassword() {
     setMessage("");
     setLoading(true);
     try {
-      const res = await API.post("/forgot-password", { identifier });
+      const res = await API.post("/api/forgot-password", { identifier });
       setMessage(`✅ ${res.data.message}`);
     } catch (err) {
       setMessage(`❌ ${err.response?.data?.message || "Something went wrong"}`);

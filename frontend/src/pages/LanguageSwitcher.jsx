@@ -28,7 +28,7 @@ function LanguageSwitcher() {
   setSelectedLang(langCode);
   setMessage("");
   try {
-    const res = await API.post("/language/request-otp", { language: langCode });
+    const res = await API.post("/api/language/request-otp", { language: langCode });
     setVia(res.data.via);
     setMessage(res.data.message);
     setStep("otp");
@@ -43,7 +43,7 @@ function LanguageSwitcher() {
     e.preventDefault();
     setMessage("");
     try {
-      const res = await API.post("/language/verify-otp", { language: selectedLang, otp });
+      const res = await API.post("/apilanguage/verify-otp", { language: selectedLang, otp });
       changeLanguage(selectedLang);
       setMessage(res.data.message);
       setStep("done");

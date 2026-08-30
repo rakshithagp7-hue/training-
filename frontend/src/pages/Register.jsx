@@ -13,7 +13,7 @@ function Register() {
     e.preventDefault();
     setError("");
     try {
-      await API.post("/auth/register", { username, email, password });
+      await API.post("/api/auth/register", { username, email, password });
       alert("Registration successful! Please login.");
       navigate("/login");
     } catch (err) {

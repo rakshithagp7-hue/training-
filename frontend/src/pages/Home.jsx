@@ -54,7 +54,7 @@ function Home() {
     e.preventDefault();
     setError("");
     try {
-      await API.post("/tweets", { text });
+      await API.post("/api/tweets", { text });
       setText("");
       fetchTweets();
     } catch (err) {

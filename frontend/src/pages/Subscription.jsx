@@ -18,14 +18,14 @@ function Subscription() {
     setLoading(true);
     try {
       // Step A: create mock order
-      const orderRes = await API.post("/payment/create-order", { plan: planName });
+      const orderRes = await API.post("/api/payment/create-order", { plan: planName });
       const { orderId } = orderRes.data;
 
       // Simulate a short "processing payment" delay like a real gateway popup
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Step B: verify mock payment
-      const verifyRes = await API.post("/payment/verify-payment", {
+      const verifyRes = await API.post("/api/payment/verify-payment", {
         orderId,
         plan: planName,
       });

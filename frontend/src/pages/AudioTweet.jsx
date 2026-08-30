@@ -14,7 +14,7 @@ function AudioTweet() {
     setError("");
     setMessage("");
     try {
-      const res = await API.post("/audio-tweet/request-otp");
+      const res = await API.post("/api/audio-tweet/request-otp");
       setMessage(res.data.message);
       setOtpSent(true);
     } catch (err) {
@@ -62,7 +62,7 @@ function AudioTweet() {
     formData.append("otp", otp);
 
     try {
-      await API.post("/audio-tweet", formData, {
+      await API.post("/api/audio-tweet", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setMessage("Audio tweet posted!");
