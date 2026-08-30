@@ -26,13 +26,18 @@ router.post("/request-otp", authMiddleware, async (req, res) => {
       return res.status(403).json({ message: "Audio tweets can only be posted between 2:00 PM and 7:00 PM IST." });
     }
 
-    const otp = generateOtp();
+        const otp = generateOtp();
     req.user.audioOtp = otp;
     req.user.audioOtpExpires = new Date(Date.now() + 5 * 60 * 1000);
     await req.user.save();
 
-    await sendAudioOtp(req.user.email, otp);
-    res.json({ message: "OTP sent to your registered email." });
+    try {
+      await sendAudioOtp(req.user.email, otp);
+    } catch (emailErr) {
+      console.log("Audio OTP email failed to send. OTP for", req.user.email, "is:", otp);
+    }
+
+    res.json({ message: "OTP sent to your registered email. (Check Render logs if not received)" });
   } catch (err) {
     res.status(500).json({ message: "Failed to send OTP", error: err.message });
   }
