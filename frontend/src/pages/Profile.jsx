@@ -10,14 +10,14 @@ function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.get("/auth/login-history").then((res) => setHistory(res.data)).catch(console.log);
-    API.get("/auth/me").then((res) => setNotificationsEnabled(res.data.notificationsEnabled)).catch(console.log);
+    API.get("/api/auth/login-history").then((res) => setHistory(res.data)).catch(console.log);
+    API.get("/api/auth/me").then((res) => setNotificationsEnabled(res.data.notificationsEnabled)).catch(console.log);
   }, []);
 
   const toggleNotifications = async () => {
     const newValue = !notificationsEnabled;
     try {
-      await API.put("/auth/notifications", { enabled: newValue });
+      await API.put("/api/auth/notifications", { enabled: newValue });
       setNotificationsEnabled(newValue);
 
       if (newValue && Notification.permission === "default") {
@@ -32,7 +32,7 @@ function Profile() {
     e.preventDefault();
     setPhoneMessage("");
     try {
-      const res = await API.put("/auth/phone", { phone });
+      const res = await API.put("/api/auth/phone", { phone });
       setPhoneMessage(res.data.message);
     } catch (err) {
       setPhoneMessage(err.response?.data?.message || "Failed to update phone");

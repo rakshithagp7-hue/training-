@@ -14,7 +14,7 @@ function Home() {
 
     const fetchTweets = async () => {
     try {
-      const res = await API.get("/tweets");
+      const res = await API.get("/api/tweets");
 
       const notifiedIds = JSON.parse(localStorage.getItem("notifiedTweetIds") || "[]");
 
@@ -43,7 +43,7 @@ function Home() {
     Notification.requestPermission();
   }
 
-  API.get("/auth/me").then((res) => setNotificationsEnabled(res.data.notificationsEnabled));
+  API.get("/api/auth/me").then((res) => setNotificationsEnabled(res.data.notificationsEnabled));
 
   fetchTweets();
   const interval = setInterval(fetchTweets, 5000); // poll every 5s for new tweets
