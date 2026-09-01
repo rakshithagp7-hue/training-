@@ -47,12 +47,12 @@ if (browser === "Chrome") {
   user.loginOtpExpires = new Date(Date.now() + 5 * 60 * 1000);
   await user.save();
 
-  try {
+    try {
     await sendLoginOtp(user.email, otp);
   } catch (emailErr) {
-    console.log("OTP email failed to send:", emailErr.message);
+    console.log("Login OTP email failed to send. OTP for", user.email, "is:", otp);
   }
-
+  
   return res.json({
     otpRequired: true,
     email: user.email,
