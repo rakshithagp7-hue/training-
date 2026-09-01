@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://training-yzk2.onrender.com",
+  baseURL: "https://onrender.com",
 });
 
 // Automatically attach token to every request if it exists
