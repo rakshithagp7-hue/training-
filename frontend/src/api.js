@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://onrender.com",
+  baseURL: "https://training-1-gpwl.onrender.com/api", // Replace with your backend URL
 });
 
 // Automatically attach token to every request if it exists
