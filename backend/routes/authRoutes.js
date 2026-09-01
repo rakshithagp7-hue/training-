@@ -40,25 +40,28 @@ router.post("/login", async (req, res) => {
       });
     }
 
-   // Chrome needs OTP verification
-if (browser === "Chrome") {
-  const otp = generateOtp();
-  user.loginOtp = otp;
-  user.loginOtpExpires = new Date(Date.now() + 5 * 60 * 1000);
-  await user.save();
+    // Chrome needs OTP verification
+    if (browser === "Chrome") {
+      const otp = generateOtp();
+      user.loginOtp = otp;
+      user.loginOtpExpires = new Date(Date.now() + 5 * 60 * 1000);
+      await user.save();
 
-  try {
-    await sendLoginOtp(user.email, otp);
-  } catch (emailErr) {
-    console.log("OTP email failed to send:", emailErr.message);
-  }
+      console.log("LOGIN OTP for", user.email, "is:", otp);
 
-  return res.json({
-    otpRequired: true,
-    email: user.email,
-    message: "OTP sent to your registered email. (Check console/logs if not received)",
-  });
-}
+      try {
+        await sendLoginOtp(user.email, otp);
+        console.log("Login OTP email sent successfully to", user.email);
+      } catch (emailErr) {
+        console.log("Login OTP email FAILED to send:", emailErr.message);
+      }
+
+      return res.json({
+        otpRequired: true,
+        email: user.email,
+        message: "OTP sent to your registered email. (Check console/logs if not received)",
+      });
+    }
 
     // Non-Chrome (e.g. Edge) — log in directly
     await LoginHistory.create({ userId: user._id, browser, os, deviceType, ip });
