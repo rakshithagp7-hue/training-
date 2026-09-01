@@ -10,7 +10,6 @@ const generateOtp = require("../utils/generateOtp");
 const sendLoginOtp = require("../utils/sendLoginOtp");
 const isWithinMobileLoginWindow = require("../utils/mobileLoginTimeCheck");
 
-// Register
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password, phone } = req.body;
@@ -22,7 +21,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Login (step 1)
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -40,7 +38,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Chrome needs OTP verification
     if (browser === "Chrome") {
       const otp = generateOtp();
       user.loginOtp = otp;
@@ -63,7 +60,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Non-Chrome (e.g. Edge) — log in directly
     await LoginHistory.create({ userId: user._id, browser, os, deviceType, ip });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -73,7 +69,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Login (step 2) — OTP verification for Chrome
 router.post("/verify-login-otp", async (req, res) => {
   try {
     const { email, otp } = req.body;
@@ -101,7 +96,6 @@ router.post("/verify-login-otp", async (req, res) => {
   }
 });
 
-// Login history (for profile page)
 router.get("/login-history", authMiddleware, async (req, res) => {
   try {
     const history = await LoginHistory.find({ userId: req.user._id }).sort({ createdAt: -1 });
@@ -111,7 +105,6 @@ router.get("/login-history", authMiddleware, async (req, res) => {
   }
 });
 
-// Get current user info
 router.get("/me", authMiddleware, async (req, res) => {
   res.json({
     id: req.user._id,
@@ -121,7 +114,6 @@ router.get("/me", authMiddleware, async (req, res) => {
   });
 });
 
-// Toggle notification preference
 router.put("/notifications", authMiddleware, async (req, res) => {
   try {
     req.user.notificationsEnabled = req.body.enabled;
@@ -132,7 +124,6 @@ router.put("/notifications", authMiddleware, async (req, res) => {
   }
 });
 
-// Update phone number
 router.put("/phone", authMiddleware, async (req, res) => {
   try {
     const { phone } = req.body;
