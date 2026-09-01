@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
     setError("");
     try {
-      const res = await API.post("/api/auth/login", { email, password });
+      const res = await API.post("/auth/login", { email, password });
       if (res.data.otpRequired) {
         setOtpRequired(true);
       } else {
@@ -35,7 +35,7 @@ function Login() {
     e.preventDefault();
     setError("");
     try {
-      const res = await API.post("/api/auth/verify-login-otp", { email, otp });
+      const res = await API.post("/auth/verify-login-otp", { email, otp });
       finishLogin(res.data);
     } catch (err) {
       setError(err.response?.data?.message || "OTP verification failed");
