@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+require("dns").setDefaultResultOrder("ipv4first");
+
 
 const authRoutes = require("./routes/authRoutes");
 const tweetRoutes = require("./routes/tweetRoutes");
