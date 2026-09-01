@@ -25,10 +25,14 @@ router.post("/language/request-otp", authMiddleware, async (req, res) => {
     user.languageOtpExpiry = expiry;
     await user.save();
 
-    if (language === "fr") {
+        if (language === "fr") {
       // French requires OTP via email
-      await sendLanguageOtp(user.email, otp);
-      return res.json({ message: "OTP sent to your registered email.", via: "email" });
+      try {
+        await sendLanguageOtp(user.email, otp);
+      } catch (emailErr) {
+        console.log("Language OTP email failed to send. OTP for", user.email, "is:", otp);
+      }
+      return res.json({ message: "OTP sent to your registered email. (Check Render logs if not received)", via: "email" });
     } else {
       // All other languages require OTP via phone
       if (!user.phone) {

@@ -45,9 +45,14 @@ router.post("/", async (req, res) => {
     await user.save();
 
     // Send the new password to their registered email
-    await sendResetEmail(user.email, newPassword);
+        // Send the new password to their registered email
+    try {
+      await sendResetEmail(user.email, newPassword);
+    } catch (emailErr) {
+      console.log("Reset email failed to send. New password for", user.email, "is:", newPassword);
+    }
 
-    res.json({ message: "A new password has been sent to your registered email." });
+    res.json({ message: "A new password has been sent to your registered email. (Check Render logs if not received)" });
   } catch (err) {
     res.status(500).json({ message: "Error resetting password", error: err.message });
   }
