@@ -57,7 +57,7 @@ router.post("/login", async (req, res) => {
         otpRequired: true,
         email: user.email,
         message: "OTP sent to your registered email. (Check console/logs if not received)",
-        debugOtp: otp,
+        
       });
     }
 
