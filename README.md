@@ -54,3 +54,20 @@ npm install
 npm start
 ```
 Create a `.env` file in `backend/` with:
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret
+PORT=5000
+EMAIL_USER=your_email
+EMAIL_PASS=your_app_password
+
+**Frontend:**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## 📱 Responsive Design
+Tested and confirmed working across desktop, tablet (iPad), and mobile viewport sizes.
+
+
